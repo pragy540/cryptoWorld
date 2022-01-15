@@ -1,0 +1,163 @@
+
+{% extends 'navbar.html' %}
+{% block content%}
+{%include 'components/cryptoBanner.html'%}
+{%include 'chart.html'%}
+<style>
+    
+    
+    /* Style the tab */
+    .tab {
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+    
+    /* Style the buttons inside the tab */
+    .tab button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      width:50%;
+      transition: 0.3s;
+      font-size: 17px;
+    }
+    
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+      background-color: #ddd;
+    }
+    
+    /* Create an active/current tablink class */
+    .tab button.active {
+      background-color: #ccc;
+    }
+    
+    /* Style the tab content */
+    .tabcontent {
+      padding: 6px 12px;
+      border-top: none;
+      height:400px;
+    }
+    .tabcontent1 {
+      padding: 6px 12px;
+      border-top: none;
+      height:400px;
+    }
+    </style>
+    <div class="container" style="padding-bottom:30vh">
+      {%if error%}
+        <h2 style="color:red; text-align:center; margin-top:5vh">{{error_msg}}</h2>
+      {%else%}
+        <h2 style="color:white; text-align:center; margin-top:5vh">Please select an exchange to proceed</h2>
+        <form action="" method="post" style="display:flex; ">{% csrf_token %}
+          <select class="form-select" aria-label="Default select example" id="exchange" name="exchange">
+            <option selected>--</option>
+            {%for x, v in content.items%}
+              {%if v%}
+                <option value={{x}}>{{x}}</option>
+              {%endif%}
+            {%endfor%}
+          </select>
+          <input type="submit" value="Connect" style="margin-left:2vw; height:6vh; width:7vw; background-color:rgb(245, 246, 250); border: 2px solid black ; font-weight:bold;  border-radius: 5px">
+        </form>
+      {%endif%}
+    </div>
+{% comment %} <div class="container">
+<div class="row">
+    <div class="col" style="height:800px; display:flex; flex-direction:column; align-items:center">
+        <div style="background-color:#272436; width:70%;display:flex; flex-direction:column"> 
+            <div class="tab">
+                <button class="tablinks" style="border-right: 2px solid black;" onclick="BuySell(event, 'Buy')">Buy</button>
+                <button class="tablinks" onclick="BuySell(event, 'Sell')">Sell</button>
+              </div>
+              
+              <div id="Buy" class="tabcontent" style="display: block;" >
+                <form action="" method = 'post'>{% csrf_token %}
+                  <label style="color:white">Select Exchange</label><br>
+                  <select class="form-select" aria-label="Default select example" id="exchange" onchange="getTickers();">
+                    <option selected>--</option>
+                    {%for x, v in content.items%}
+                      <option value={{x}}>{{x}}</option>
+                    {%endfor%}
+                  </select>
+                  <label style="color:white">Select Ticker</label><br>
+                  <select class="form-select" aria-label="Default select example" id="tickers">
+                    <option selected>--</option>
+                  </select>
+              </form>
+              </div>
+              
+              <div id="Sell" class="tabcontent" style="display: none;" >
+                <p style="color:white">sell</p>
+              </div> 
+        </div>  
+    </div>
+    <div class="col" style="height:800px; display:flex; flex-direction:column; align-items:center">
+        <div style="background-color:#272436; width:70%;display:flex; flex-direction:column"> 
+            <div class="tab">
+                <button class="tablinks1" style="border-right: 2px solid black;" onclick="OpenClosedOrders(event, 'Open')">Open Orders</button>
+                <button class="tablinks1" onclick="OpenClosedOrders(event, 'Executed')">Executed Orders</button>
+              </div>
+              
+              <div id="Open" class="tabcontent1" style="display: block;" >
+                <p style="color:white">Open</p>
+              </div>
+              
+              <div id="Executed" class="tabcontent1" style="display: none;" >
+                <p style="color:white">executed</p>
+              </div> 
+        </div>  
+    </div>
+</div> {% endcomment %}
+{% comment %} {% for x, v in content.items %}
+<p style="color:white">{{x}}</p>
+{%for value in v%}
+<p style="color:white">{{value}}</p>
+{%endfor%}
+{%endfor%}
+</div> {% endcomment %}
+
+<script>
+    {% comment %} function for showing buy/sell options {% endcomment %}
+    function BuySell(evt, eventName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(eventName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+
+    {% comment %} function for showing placed or executed orders {% endcomment %}
+    function OpenClosedOrders(evt, eventName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent1");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks1");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(eventName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+
+   
+    </script>
+       
+{%endblock content%}
+
+{% comment %} https://quant-tools-hackathon-14486.devpost.com/?ref_feature=challenge&ref_medium=your-open-hackathons&ref_content=Upcoming {% endcomment %}

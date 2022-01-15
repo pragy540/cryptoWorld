@@ -1,0 +1,28 @@
+<script>
+    $(document).ready(function(){
+
+//chart for binance
+const ctx = document.getElementById('myChart2').getContext('2d');
+const myChart2 = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: [{% for x, v in binanceBalance.items%}'{{x}}', {% endfor%}],
+        datasets: [{
+            label: 'Your Binance Portfolio (in terms of USDT)',
+            data: [{% for x, v in binanceBalance.items%}{{v.price}}, {% endfor%}],
+            backgroundColor: [{% for x, v in binanceBalance.items%}'{{v.color}}', {% endfor%}],
+            borderColor: [{% for x, v in binanceBalance.items%}'{{v.color}}', {% endfor%}],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+    });
+</script>
+<canvas id="myChart2" style="length:20vw; width:20vw"></canvas>

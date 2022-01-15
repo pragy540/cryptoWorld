@@ -1,0 +1,15 @@
+{% extends 'navbar.html' %}
+{% block content%}
+<div class="container" style="display:flex; flex-direction:column; align-items:center">
+<h2 style="color:white; text-align:center; margin-top:5vh; margin-bottom:5vh">{{exchange}}</h2>
+<form action="trade" method="post" style="display:flex; ">{% csrf_token %}
+    <select class="form-select" aria-label="Default select example" id="ticker" name="ticker">
+      {%for x in tickers%}
+          <option value={{x}}>{{x}}</option>
+      {%endfor%}
+    </select>
+    <input name="exchange" value={{exchange}} hidden />
+    <input type="submit" value="GET DATA" style="margin-left:2vw; height:6vh; width:7vw; background-color:rgb(245, 246, 250); border: 2px solid black ; font-weight:bold;  border-radius: 5px">
+  </form>
+</div>
+{% endblock content%}

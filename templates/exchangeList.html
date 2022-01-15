@@ -1,0 +1,62 @@
+
+{% extends 'navbar.html' %}
+{% block content%}
+<div class="container">
+ 
+    <h2 class="text-center" style="color: rgb(248,249,250); margin: 2vh auto">Select exchanges</h2>
+    {% comment %} first row {% endcomment %}
+    <div style="margin: 10vh auto; display:flex; justify-content: space-evenly; ">
+        <div  style="border-radius:10px; background-color: rgb(248,249,250); height:20vh; width:30vw; display:flex; justify-content:space-evenly; align-items:center">
+            <h2>Binance</h2>
+            <div style="display:flex; flex-direction:column">
+                <form action="/credentialsAPI/Binance" method="get">
+                    <input type="submit" value="Connect" style="color: white; height:5vh; background-color:#908cdd; border-color:#908cdd; border-radius: 5px; width:6vw">
+                </form>
+                <form action="https://www.binance.com/en" method="get">
+                    <input type="submit" value="Open" style="color: #908cdd;height:5vh; background-color:rgb(248,249,250); border-radius: 5px; margin-top:1vh; width:6vw; border:2px solid #908cdd">
+                </form>
+            </div>
+        </div>
+        <div  style="border-radius:10px; background-color: rgb(248,249,250); height:20vh; width:30vw; display:flex; justify-content:space-evenly; align-items:center">
+            <h2>Uniswap</h2>
+            <div style="display:flex; flex-direction:column">
+
+                <form action="/credentialsAPI/Uniswap" method="get">
+                    <input type="submit" value="Connect" style="color: white; height:5vh; background-color:#908cdd; border-color:#908cdd; border-radius: 5px; width:6vw">
+                </form>
+                <form action="https://app.uniswap.org/#/swap" method="get">
+                    <input type="submit" value="Open" style="color: #908cdd;height:5vh; background-color:rgb(248,249,250); border-radius: 5px; margin-top:1vh; width:6vw; border:2px solid #908cdd">
+                </form>
+            </div>
+        </div>
+    </div>
+     {% comment %} second row {% endcomment %}
+    <div style="margin: 4vh auto; display:flex; justify-content: space-evenly; ">
+        <div  style="border-radius:10px; background-color: rgb(248,249,250); height:20vh; width:30vw; display:flex; justify-content:space-evenly; align-items:center">
+            <h2>WazirX</h2>
+            <div style="display:flex; flex-direction:column">
+                <form action="/credentialsAPI/WazirX" method="get">
+                    <input type="submit" value="Connect" style="color: white; height:5vh; background-color:#908cdd; border-color:#908cdd; border-radius: 5px; width:6vw">
+                </form>
+                <form action="https://wazirx.com/" method="get">
+                    <input type="submit" value="Open" style="color: #908cdd;height:5vh; background-color:rgb(248,249,250); border-radius: 5px; margin-top:1vh; width:6vw; border:2px solid #908cdd">
+                </form>
+            </div>
+        </div>
+        <div  style="border-radius:10px; background-color: rgb(248,249,250); height:20vh; width:30vw; display:flex; justify-content:space-evenly; align-items:center">
+            <h2>FTX</h2>
+            <div style="display:flex; flex-direction:column">
+                <form action="/credentialsAPI/FTX" method="get">
+                    <input type="submit" value="Connect" style="color: white; height:5vh; background-color:#908cdd; border-color:#908cdd; border-radius: 5px; width:6vw">
+                </form>
+                <form action="https://ftx.com/" method="get">
+                    <input type="submit" value="Open" style="color: #908cdd;height:5vh; background-color:rgb(248,249,250); border-radius: 5px; margin-top:1vh; width:6vw; border:2px solid #908cdd">
+                </form>
+            </div>
+        </div>
+    </div>
+
+   
+    
+</div>
+{% endblock content%}

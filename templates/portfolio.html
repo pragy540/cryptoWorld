@@ -1,0 +1,42 @@
+
+{% extends 'navbar.html' %}
+
+{% comment %} script {% endcomment %}
+{%block script%}
+
+{%endblock script%}
+
+{% comment %} content {% endcomment %}
+{% block content%}
+{%if error%}
+<p style="color:red; background-color:#fbdbdb; padding: 10px; border-radius: 10px; margin: 1vh 2vw ">{{error_msg}}</p>
+{%endif%}
+
+{%if Binance%}<p style="color:white">Binance</p>
+{%for x, value in binanceBalance.items%}
+    <p style="color:white">{{x}}</p><br>
+    <p style="color:white">{{value}}</p><br>
+{%endfor%}
+{%endif%}
+
+{%if WazirX%}<p style="color:white">WazirX</p>
+{%for x, value in wazirxBalance.items%}
+    <p style="color:white">{{x}}</p><br>
+    <p style="color:white">{{value}}</p><br>
+{%endfor%}
+{%endif%}
+
+{%if Uniswap%}<p style="color:white">Uniswap</p>{%endif%}
+
+{%if WazirX%}
+<div>
+    {%include 'components/chart_wazir.html'%}
+</div>
+{%endif%}
+
+{%if Binance%}
+<div>
+    {%include 'components/chart_binance.html'%}
+</div>
+{%endif%}
+{% endblock content%}

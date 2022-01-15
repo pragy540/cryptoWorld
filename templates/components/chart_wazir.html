@@ -1,0 +1,28 @@
+<script>
+    $(document).ready(function(){
+        //chart for wazirX
+        const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: [{% for x, v in wazirxBalance.items%}'{{x}}', {% endfor%}],
+        datasets: [{
+            label: 'Your WazirX Portfolio (in terms of INR)',
+            data: [{% for x, v in wazirxBalance.items%}{{v.price}}, {% endfor%}],
+            backgroundColor: [{% for x, v in wazirxBalance.items%}'{{v.color}}', {% endfor%}],
+            borderColor: [{% for x, v in wazirxBalance.items%}'{{v.color}}', {% endfor%}],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+    });
+</script>
+<canvas id="myChart" style="length:20vw; width:20vw"></canvas>
