@@ -1,5 +1,4 @@
-# from uniswap import Uniswap
-# from web3 import Web3
+
 currencies = {
         "ETH": "0x0000000000000000000000000000000000000000",
         "1INCH" : "0x111111111117dC0aa78b770fA6A738034120C302",
@@ -51,53 +50,3 @@ currencies = {
         "ZRX" : "0xE41d2489571d322189246DaFA5ebDe1F4699F498",
     }
 
-# def f1():
-#     address = "0x00000000219ab540356cBB839Cbe05303d7705Fa"          # or None if you're not going to make transactions
-#     private_key = ""  # or None if you're not going to make transactions
-#     version = 3                       # specify which version of Uniswap to use
-#     provider = "https://mainnet.infura.io/v3/e0278c1f66e14692841c8a49796fda16"    # can also be set through the environment variable `PROVIDER`
-#     uniswap = Uniswap(address=address, private_key=private_key, version=version, provider=provider)
-
-#     # Some token addresses we'll be using later in this guide
-#     eth = "0x0000000000000000000000000000000000000000"
-#     bat = "0x0D8775F648430679A709E98d2b0Cb6250d2887EF"
-#     dai = "0x6b175474E89094C44Da98b954EedeAC495271d0F"
-#     weth = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
-#     matic = "0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0"
-#     poly ="0x9992eC3cF6A55b00978cdDF2b27BC6882d88D1eC"
-
-    
-
-    # Returns the amount of DAI you get for 1 ETH (10^18 wei)
-    # output = uniswap.get_price_input(eth, dai, 10**18)
-
-    # Returns the amount of ETH you need to pay (in wei) to get 1000 DAI
-    # output = uniswap.get_price_output(eth, dai, 1_000 * 10**18)
-
-    # Get the balance of ETH for your address.
-    # output = uniswap.get_eth_balance()
-
-    # Get the balance of a token for your address.
-    # chk_sum = Web3.toChecksumAddress('0x41e5560054824eA6B0732E656E3Ad64E20e94E45') 
-    # print(chk_sum)
-    # output = uniswap.get_token_balance(chk_sum)
-
-    # Make a trade by specifying the quantity of the input token you wish to sell
-    # uniswap.make_trade(eth, bat, 1*10**18)  # sell 1 ETH for BAT
-    # uniswap.make_trade(bat, eth, 1*10**18)  # sell 1 BAT for ETH
-    # uniswap.make_trade(bat, dai, 1*10**18)  # sell 1 BAT for DAI
-    # uniswap.make_trade(eth, bat, 1*10**18, "0x123...")  # sell 1 ETH for BAT, and send the BAT to the provided address
-    # uniswap.make_trade(dai, usdc, 1*10**18, fee=500)    # sell 1 DAI for USDC using the 0.05% fee pool (v3 only)
-
-    # Make a trade by specifying the quantity of the output token you wish to buy
-    # uniswap.make_trade_output(eth, bat, 1*10**18)  # buy ETH for 1 BAT
-    # uniswap.make_trade_output(bat, eth, 1*10**18)  # buy BAT for 1 ETH
-    # uniswap.make_trade_output(bat, dai, 1*10**18, "0x123...")  # buy BAT for 1 DAI, and send the BAT to the provided address
-    # uniswap.make_trade_output(dai, usdc, 1*10**8, fee=500)     # buy USDC for 1 DAI using the 0.05% fee pool (v3 only)
-
-    # for decimal
-    # output = uniswap.get_token(chk_sum, 'erc20')
-    # strg = str(output)[6:-1]
-    # arr = strg.split(',')
-    # decimal = arr[2].strip()
-    # return 0

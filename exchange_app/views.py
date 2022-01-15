@@ -114,12 +114,6 @@ def credentialsAPI(request, exchange_name):
     return HttpResponse("This page doesn't exist.")
 
 def portfolio(request):
-    # wazirx = ccxt.wazirx({
-    # 'apiKey': 'RrEoIyV8JRYDpBhjrd1MF6fuiFqPXhfQEAju9xTkn81LJzuZJEvd900wzZgt7nHO',
-    # 'secret': 'xbpZtCNiNjlwqbRivRFCsP7et14p7wgEesxIX1w0',
-    # })
-    # print(wazirx.fetch_balance())
-    # print(wazirx.id, wazirx.create_limit_buy_order('BTC/INR', 0.0001, 0.80))
     content ={
         "Binance" : False,
         "WazirX" : False,
@@ -235,49 +229,7 @@ def getBalanceBinance(api, secret, exchange):
         
 def getMarkets():
 
-    # binance
-    # binance = ccxt.binance({
-        # 'rateLimit':10000,
-    # 'apiKey': '72WHUcB3FjNaEr63X1KpPvcGBbVHSltjGqx0O5Hzi0MS1DnrJcRreKYtkWrdS3O4',
-    # 'secret': 'ZNIL31GRLLukRBQBRvrWNChNtBdQwMjj0k9Ru8RkSxEGsLobEGTelICdczto2XUa',
-    # })
-    # markets = binance.fetchBalance()['info']['balances']
-
-    # filteredBalance = {}
-    # color = ['red', 'yellow', 'green', 'rgba(161, 6, 86, 0.8)', 'rgba(47, 107, 217, 0.8)', 'rgba(188, 244, 21, 0.8)', 'rgba(249, 164, 22, 0.8)', 'rgba(235, 80, 102, 0.8)', 'rgba(125, 235, 80, 0.8)', 'rgba(26, 116, 134, 0.8)', 'rgba(28, 91, 229, 0.8)', 'rgba(13, 47, 123, 0.91)', 'rgba(221, 28, 60, 0.91)']
-
-    # for index, market in enumerate(markets):
-    #     amount = float(markets[index]['free']) + float(markets[index]['locked'])
-    #     x = market['asset']
-        
-    #     if(amount != 0.0):
-    #         filteredBalance[x] = market
-    #         if(market['asset'] != 'USDT'):
-    #             filteredBalance[x]['price'] = binance.fetchTicker(x+"/USDT")['close']*amount
-    #             ran = random.randrange(0, len(color))
-    #             filteredBalance[x]['color'] = color[ran]
-    #         elif(markets[index]['asset'] == 'USDT'):
-    #             filteredBalance[x]['price'] = amount
-    #             ran = random.randrange(0, len(color))
-    #             filteredBalance[x]['color'] = color[ran]
-    
-    # print(filteredBalance)
-
-    # wazirx
-    # wazirx = ccxt.wazirx({
-    #     # 'rateLimit':10000,
-    # 'apiKey': 'RrEoIyV8JRYDpBhjrd1MF6fuiFqPXhfQEAju9xTkn81LJzuZJEvd900wzZgt7nHO',
-    # 'secret': 'xbpZtCNiNjlwqbRivRFCsP7et14p7wgEesxIX1w0',
-    # })
-    # markets = wazirx.fetchBalance()['info']['balances']
-    # for index, market in enumerate(markets):
-    #     amount = float(markets[index]['free']) + float(markets[index]['locked'])
-    #     print(markets[index]['asset'], ": ", amount)
-
-    # markets = wazirx.fetchBalance()
-    # print(markets)
    
-    # print(markets)
     return 0
         
 
@@ -405,7 +357,7 @@ def getPriceAcrossExchanges(ticker,exchange, user_email):
 
 def getPriceUniswap(coin, inTermsOf):
      # initializing uniswap
-    address = "0xFC95f9Bd14aD4f932Ddb7C7Ed4f81F644C5CB6Db"        
+    address = ""        
     private_key = ""  
     version = 3       
     provider = "https://mainnet.infura.io/v3/e0278c1f66e14692841c8a49796fda16"    # can also be set through the environment variable `PROVIDER`
