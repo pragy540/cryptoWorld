@@ -1,0 +1,29 @@
+<script>
+    $(document).ready(function(){
+        //chart for wazirX
+        const ctx = document.getElementById('myChart3').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: [{% for x, v in uniswapBalance.items%}'{{x}}', {% endfor%}],
+        datasets: [{
+            label: 'Your Uniswap Portfolio (in terms of USDC)',
+            data: [{% for x, v in uniswapBalance.items%}{{v.price}}, {% endfor%}],
+            backgroundColor: [{% for x, v in uniswapBalance.items%}'{{v.color}}', {% endfor%}],
+            borderColor: [{% for x, v in uniswapBalance.items%}'{{v.color}}', {% endfor%}],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+    });
+</script>
+<h2 style="text-align:center; color:white; margin-top:4vh">Uniswap</h2>
+<canvas id="myChart3" style="length:20vw; width:20vw"></canvas>

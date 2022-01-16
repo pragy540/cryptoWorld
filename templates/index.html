@@ -53,16 +53,16 @@
     </style>
     <div class="container" style="padding-bottom:30vh">
       {%if user.is_authenticated%}
-      {%if error%}
-        <h2 style="color:red; text-align:center; margin-top:5vh">{{error_msg}}</h2>
+      {%if content.error%}
+        <h2 style="color:red; text-align:center; margin-top:5vh">{{content.error_msg}}</h2>
       {%else%}
 
         <h2 style="color:white; text-align:center; margin-top:5vh">Please select an exchange to proceed</h2>
         <form action="" method="post" style="display:flex; ">{% csrf_token %}
           <select class="form-select" aria-label="Default select example" id="exchange" name="exchange">
-            <option selected>--</option>
+            {% comment %} <option selected>--</option> {% endcomment %}
             {%for x, v in content.items%}
-              {%if v%}
+              {%if v %}
                 <option value={{x}}>{{x}}</option>
               {%endif%}
             {%endfor%}

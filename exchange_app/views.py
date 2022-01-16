@@ -124,7 +124,7 @@ def portfolio(request):
         "WazirX" : False,
         "Uniswap" : False,
         "error" : True,
-        "error_msg" : "No API keys present. Please connect to your preferred exchanges by clicking 'Exchanges' in navbar."
+        "error_msg" : "No API keys present. To trade, please connect to your preferred exchanges by clicking 'Exchanges' in navbar."
     }
     user_email = request.user.username
     userapi = UserApi.objects.all().filter(email=user_email)
@@ -148,8 +148,8 @@ def portfolio(request):
     
     return render(request, 'portfolio.html',content )
 
-def dashboard(request):
-    return render(request, 'dashboard.html')
+def orders(request):
+    return render(request, 'orders.html')
 
 def signup(request):
     if request.method == 'POST':
@@ -244,7 +244,7 @@ def get_exchanges(email):
         "WazirX" : False,
         "Uniswap" : False,
         "error" : True,
-        "error_msg" : "No API keys present. Please connect to your preferred exchanges by clicking 'Exchanges' in navbar to trade."
+        "error_msg" : "No API keys present. To trade, please connect to your preferred exchanges by clicking 'Exchanges' in navbar."
     }
     userapi = UserApi.objects.all().filter(email=email)
     if(len(userapi)== 1):
@@ -298,19 +298,30 @@ def getBalanceUniswap(publickey):
     from .uniswap import currencies
 
     filteredBalance = {}
-    for currency, address in currencies.items():
-        chk_sum = Web3.toChecksumAddress(address) 
-        balance = uniswap.get_token_balance(chk_sum)
-        if(balance != 0):
-            filteredBalance[currency] = {"balance" : balance}
-            # to get decimal places
-            token = uniswap.get_token(chk_sum, 'erc20')
-            strg = str(token)[6:-1]
-            arr = strg.split(',')
-            decimal = int(arr[2].strip())
-            # to get price of that token in usdc
-            price = uniswap.get_price_input(chk_sum, currencies["USDC"], 10**decimal)*balance
-            filteredBalance[currency]['price'] = price
+    color = ['red', 'yellow', 'green', 'rgba(161, 6, 86, 0.8)', 'rgba(47, 107, 217, 0.8)', 'rgba(188, 244, 21, 0.8)', 'rgba(249, 164, 22, 0.8)', 'rgba(235, 80, 102, 0.8)', 'rgba(125, 235, 80, 0.8)', 'rgba(26, 116, 134, 0.8)', 'rgba(28, 91, 229, 0.8)', 'rgba(13, 47, 123, 0.91)', 'rgba(221, 28, 60, 0.91)']
+
+    try:
+        for currency, address in currencies.items():
+            chk_sum = Web3.toChecksumAddress(address) 
+            balance = uniswap.get_token_balance(chk_sum)
+            if(balance != 0):
+                filteredBalance[currency] = {"balance" : balance}
+                # to get decimal places
+                if(address != "0x0000000000000000000000000000000000000000"):
+                    token = uniswap.get_token(chk_sum, 'erc20')
+                    strg = str(token)[6:-1]
+                    arr = strg.split(',')
+                    decimal = int(arr[2].strip())
+                else:
+                    decimal=18
+                # to get price of that token in usdc
+                price = (float(uniswap.get_price_input(chk_sum, currencies["USDC"], 10**decimal))*balance)/10**6
+                filteredBalance[currency]['price'] = price
+                ran = random.randrange(0, len(color))
+                filteredBalance[currency]['color'] = color[ran]
+    except Exception as e:
+        pass
+    print(filteredBalance)
     return filteredBalance
 
 
@@ -402,6 +413,7 @@ def checkout(request):
         if(buyOrSell == "Buy"):
             if(exchange == "WazirX"):
                 wazirx = ccxt.wazirx({
+                    'rateLimit': 10000,
                    'apiKey': userapi[0].wazirApi,
                    'secret': userapi[0].wazirSecret, 
                 })
@@ -438,6 +450,7 @@ def checkout(request):
         if(buyOrSell == "Sell"):
             if(exchange == "WazirX"):
                 wazirx = ccxt.wazirx({
+                    'rateLimit': 10000,
                    'apiKey': userapi[0].wazirApi,
                    'secret': userapi[0].wazirSecret, 
                 })

@@ -1,3 +1,5 @@
+# from uniswap import Uniswap
+# from web3 import Web3
 
 currencies = {
         "ETH": "0x0000000000000000000000000000000000000000",
@@ -49,4 +51,15 @@ currencies = {
         "YFI" : '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e',
         "ZRX" : "0xE41d2489571d322189246DaFA5ebDe1F4699F498",
     }
-
+# def hell():
+#     address = "0x00000000219ab540356cBB839Cbe05303d7705Fa"        
+#     private_key = ""  
+#     version = 3       
+#     provider = "https://mainnet.infura.io/v3/e0278c1f66e14692841c8a49796fda16"    # can also be set through the environment variable `PROVIDER`
+#     uniswap = Uniswap(address=address, private_key=private_key, version=version, provider=provider)
+#     chk_sum = Web3.toChecksumAddress(currencies["ETH"]) 
+#     balance = uniswap.get_token_balance(chk_sum)
+#     token = uniswap.get_token("0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", 'erc20')
+#     price = uniswap.get_price_input(chk_sum, currencies["USDC"], 10**18)
+    
+#     print(balance, price, token)

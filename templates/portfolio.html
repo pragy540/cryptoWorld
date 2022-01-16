@@ -12,7 +12,7 @@
 <p style="color:red; background-color:#fbdbdb; padding: 10px; border-radius: 10px; margin: 1vh 2vw ">{{error_msg}}</p>
 {%endif%}
 
-{%if Binance%}<p style="color:white">Binance</p>
+{% comment %} {%if Binance%}<p style="color:white">Binance</p>
 {%for x, value in binanceBalance.items%}
     <p style="color:white">{{x}}</p><br>
     <p style="color:white">{{value}}</p><br>
@@ -26,7 +26,14 @@
 {%endfor%}
 {%endif%}
 
-{%if Uniswap%}<p style="color:white">Uniswap</p>{%endif%}
+{%if Uniswap%}<p style="color:white">Uniswap</p>
+{%for x, value in uniswapBalance.items%}
+    <p style="color:white">{{x}}</p><br>
+    <p style="color:white">{{value}}</p><br>
+{%endfor%}
+{%endif%} {% endcomment %}
+
+
 
 {%if WazirX%}
 <div>
@@ -37,6 +44,12 @@
 {%if Binance%}
 <div>
     {%include 'components/chart_binance.html'%}
+</div>
+{%endif%}
+
+{%if Uniswap%}
+<div>
+    {%include 'components/chart_uniswap.html'%}
 </div>
 {%endif%}
 {% endblock content%}
