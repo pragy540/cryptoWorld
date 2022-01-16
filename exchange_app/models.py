@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class UserApi(models.Model):
-    email = models.EmailField()
+    email = models.CharField(max_length=300)
     wazirApi = models.CharField(max_length=300, blank = True)  
     wazirSecret = models.CharField(max_length=300, blank = True)  
     binanceApi = models.CharField(max_length=300, blank = True)  

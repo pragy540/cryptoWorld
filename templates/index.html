@@ -52,9 +52,11 @@
     }
     </style>
     <div class="container" style="padding-bottom:30vh">
+      {%if user.is_authenticated%}
       {%if error%}
         <h2 style="color:red; text-align:center; margin-top:5vh">{{error_msg}}</h2>
       {%else%}
+
         <h2 style="color:white; text-align:center; margin-top:5vh">Please select an exchange to proceed</h2>
         <form action="" method="post" style="display:flex; ">{% csrf_token %}
           <select class="form-select" aria-label="Default select example" id="exchange" name="exchange">
@@ -69,6 +71,9 @@
         </form>
       {%endif%}
     </div>
+    {%else%}
+    <h2 style="color:red; text-align:center; margin-top:5vh">The user must be logged in to trade.</h2>
+    {%endif%}
 {% comment %} <div class="container">
 <div class="row">
     <div class="col" style="height:800px; display:flex; flex-direction:column; align-items:center">

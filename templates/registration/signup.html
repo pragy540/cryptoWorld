@@ -4,17 +4,19 @@
 
 
 
-<div style="height: 50vh; width: 25vw; background-color: rgb(248,249,250); margin: 10vh auto; border-radius:1vh">
+<div style="height: 60vh; width: 25vw; background-color: rgb(248,249,250); margin: 10vh auto; border-radius:1vh">
     
     <form action="{% url 'signup' %}" method="post" style="display:flex; align-items:center; flex-direction:column; "> {% csrf_token %}
         <h2 style="margin-top:5vh">Sign-up here</h2>
         <div>
-            <label for="email">Email</label><br>
+            <label for="email">Email/Username</label><br>
             {{form.username}}
+            
             {% comment %} <input type="email" id="email" name="email" style="width:100%; height:5vh; border-color:#9bb9bf; border-radius: 5px"> {% endcomment %}
         </div>
         <div>
             <label for="password">Password</label><br>
+            
             {{form.password1}}
             {% comment %} <input type="password" id="password" name="password" style="width:100%; height:5vh; border-color:#9bb9bf; border-radius: 5px"> {% endcomment %}
         </div> 
@@ -26,8 +28,14 @@
         <input type="submit" value="Signup" style="height:5vh; background-color:#0dcaf0; margin-top: 2vh; border-color:#0dcaf0; border-radius: 5px">
     </form>
     {% if form.errors %}
-        <p style="color:green; background-color:#d9f5a4; padding: 10px; border-radius: 10px; margin: 1vh 2vw ">User could not be registered due to some errors.</p>
+        <p style="color:red; background-color:#d9f5a4; padding: 10px; border-radius: 10px; margin: 1vh 2vw ">User could not be registered due to some errors.</p>
     {% endif %}
-
+    
 </div>
+<ul style="color:white; margin-top:2vh; list-style-type: none;">
+    <li style="text-align:center">Your password can’t be too similar to your other personal information.</li>
+    <li style="text-align:center">Your password must contain atleast 8 characters.</li>
+    <li style="text-align:center">Your password cannot be a commonly used password.</li>
+    <li style="text-align:center">Your password can’t be entirely numeric.</li>
+</ul>
 {% endblock content%}

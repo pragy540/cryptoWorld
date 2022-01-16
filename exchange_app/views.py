@@ -8,10 +8,15 @@ import ccxt
 import random
 from uniswap import Uniswap
 from web3 import Web3
+from django.contrib.auth import logout
 
 # from django.contrib.auth import get_user_model
 
 # Create your views here.
+def logout_view(request):
+    logout(request)
+    return render("registration/logout.html")
+    
 def index(request): 
     if request.method == 'POST':
         exchangeSelected = request.POST['exchange']
