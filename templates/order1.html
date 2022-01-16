@@ -1,0 +1,28 @@
+
+{% extends 'navbar.html' %}
+{% block content%}
+
+<div class="container" style="padding-bottom:30vh">
+    {%if user.is_authenticated%}
+    {%if content.error%}
+      <h2 style="color:red; text-align:center; margin-top:5vh">{{content.error_msg}}</h2>
+    {%else%}
+
+      <h2 style="color:white; text-align:center; margin-top:5vh">Please select an exchange to proceed</h2>
+      <form action="" method="post" style="display:flex; ">{% csrf_token %}
+        <select class="form-select" aria-label="Default select example" id="exchange" name="exchange">
+          {% comment %} <option selected>--</option> {% endcomment %}
+          {%for x, v in content.items%}
+            {%if v and x != "Uniswap"%}
+              <option value={{x}}>{{x}}</option>
+            {%endif%}
+          {%endfor%}
+        </select>
+        <input type="submit" value="Connect" style="margin-left:2vw; height:6vh; width:7vw; background-color:rgb(245, 246, 250); border: 2px solid black ; font-weight:bold;  border-radius: 5px">
+      </form>
+    {%endif%}
+</div>
+{%else%}
+    <h2 style="color:red; text-align:center; margin-top:5vh">The user must be logged in to see orders.</h2>
+    {%endif%}
+{%endblock content%}

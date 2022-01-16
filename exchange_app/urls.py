@@ -11,5 +11,6 @@ urlpatterns = [
     path('orders', views.orders, name="orders"),
     path('signup', views.signup, name="signup"),
     path('exchangeList', views.exchangeList, name="exchangeList"),
+    path('cancel_order', views.cancel_order, name="cancel_order"),
     path('credentialsAPI/<exchange_name>/', views.credentialsAPI, name="credentialsAPI"),
 ]

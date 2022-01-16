@@ -9,6 +9,8 @@ import random
 from uniswap import Uniswap
 from web3 import Web3
 from django.contrib.auth import logout
+import time
+
 
 # from django.contrib.auth import get_user_model
 
@@ -149,7 +151,68 @@ def portfolio(request):
     return render(request, 'portfolio.html',content )
 
 def orders(request):
-    return render(request, 'orders.html')
+    user = request.user.username
+    content = get_exchanges(user)
+    if request.method == 'POST':
+        userapi = UserApi.objects.all().filter(email=user)
+        exchange_selected = request.POST['exchange']
+        if(exchange_selected == 'WazirX'):
+            exchange=ccxt.wazirx({
+            'rateLimit': 10000,
+            'apiKey': userapi[0].wazirApi,
+            'secret': userapi[0].wazirSecret,
+            })
+            if (exchange.has['fetchOpenOrders']):
+                openOrderWazirX = exchange.fetchOpenOrders()
+                print(openOrderWazirX)
+            return render(request, 'orders_wazirx.html', {"orders" : openOrderWazirX})
+
+        
+        if(exchange_selected == 'Binance'):
+            # exchange=ccxt.binance({
+            # 'apiKey': userapi[0].binanceApi,
+            # 'secret': userapi[0].binanceSecret,
+            # })
+            # if (exchange.has['fetchOpenOrders']):
+            #     openOrderBinance = exchange.fetchOpenOrders(limit = 30)
+            #     content["openOrderBinance"] = openOrderBinance
+            #     time.sleep(1)
+            #     print(openOrderBinance)
+            # if (exchange.has['fetchClosedOrders']):
+            #     closedOrderBinance = exchange.fetchClosedOrders(limit = 20)
+            #     content["closedOrderBinance"] = closedOrderBinance
+            #     time.sleep(1)
+            #     print(closedOrderBinance)
+            return HttpResponse("Currently open orders can be shown only for WazirX. Sorry for the inconvenience.")
+        
+    return render(request, 'order1.html', {"content" : content})
+
+
+def cancel_order(request):
+    success = False
+    
+    if request.method == 'POST':
+        id = request.POST['id']
+        exchange_selected = request.POST['exchange']
+        symbol = request.POST['symbol']
+        user = request.user.username
+        userapi = UserApi.objects.all().filter(email=user)
+        
+        if(exchange_selected == 'WazirX'):
+            exchange=ccxt.wazirx({
+            'apiKey': userapi[0].wazirApi,
+            'secret': userapi[0].wazirSecret,
+            })
+            try:
+                cancel = exchange.cancelOrder(id, symbol, params={})
+                success = True
+                return HttpResponse("The order has been cancelled.")
+            except Exception as e:
+                return HttpResponse(e)
+    
+    return HttpResponse("Some error ocurred.")
+    # return render(request, 'order1.html', {"success" : success})
+
 
 def signup(request):
     if request.method == 'POST':
