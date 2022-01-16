@@ -1,9 +1,9 @@
 
 # CrytoWorld
 
-Inside the directory where you pull this repository, write in the terminal:
+Inside the directory where you pull this repository, use requirements.txt to form a virtual environment (named myenv) and write in the terminal:
 
-**For Linux**: use requirements.txt to form a virtual environment and write *source env/bin/activate*
+**For Linux**: *source myenv/bin/activate*
 
 **For Windows**: *myenv\Scripts\activate*
 
