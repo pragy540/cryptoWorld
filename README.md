@@ -3,7 +3,7 @@
 
 Inside the directory where you pull this repository, write in the terminal:
 
-**For Linux**: *source myenv/bin/activate*
+**For Linux**: use requirements.txt to form a virtual environment and write *source env/bin/activate*
 
 **For Windows**: *myenv\Scripts\activate*
 
