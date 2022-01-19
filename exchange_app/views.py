@@ -252,45 +252,51 @@ def getBalanceWazir(api, secret, exchange):
             else:
                 filteredBalance[x] = balances[x]
                 if(exchange == 'WazirX'):
-                    if (x == 'INR'):
-                        filteredBalance[x]['price'] = balances[x]['total']
-                        ran = random.randrange(0, len(color))
-                        filteredBalance[x]['color'] = color[ran]
-                    else:
-                        filteredBalance[x]['price'] = wazirx.fetchTicker(x+"/INR")['close']*balances[x]['total']
-                        ran = random.randrange(0, len(color))
-                        filteredBalance[x]['color'] = color[ran]
+                    try:
+                        if (x == 'INR'):
+                            filteredBalance[x]['price'] = balances[x]['total']
+                            ran = random.randrange(0, len(color))
+                            filteredBalance[x]['color'] = color[ran]
+                        else:
+                            filteredBalance[x]['price'] = wazirx.fetchTicker(x+"/INR")['close']*balances[x]['total']
+                            ran = random.randrange(0, len(color))
+                            filteredBalance[x]['color'] = color[ran]
+                    except Exception as e:
+                        pass
                     print(filteredBalance)
     return filteredBalance
         
 def getBalanceBinance(api, secret, exchange):
-    
-    if(exchange == 'Binance'):
-        binance = ccxt.binance({
-        'apiKey': api,
-        'secret': secret,
-        })
-        markets = binance.fetchBalance()['info']['balances']
-
     filteredBalance = {}
-    color = ['red', 'yellow', 'green', 'rgba(161, 6, 86, 0.8)', 'rgba(47, 107, 217, 0.8)', 'rgba(188, 244, 21, 0.8)', 'rgba(249, 164, 22, 0.8)', 'rgba(235, 80, 102, 0.8)', 'rgba(125, 235, 80, 0.8)', 'rgba(26, 116, 134, 0.8)', 'rgba(28, 91, 229, 0.8)', 'rgba(13, 47, 123, 0.91)', 'rgba(221, 28, 60, 0.91)']
-
-    for index, market in enumerate(markets):
-        amount = float(markets[index]['free']) + float(markets[index]['locked'])
-        x = market['asset']
-        
-        if(amount != 0.0):
-            filteredBalance[x] = market
-            if(market['asset'] != 'USDT'):
-                filteredBalance[x]['price'] = binance.fetchTicker(x+"/USDT")['close']*amount
-                ran = random.randrange(0, len(color))
-                filteredBalance[x]['color'] = color[ran]
-            elif(markets[index]['asset'] == 'USDT'):
-                filteredBalance[x]['price'] = amount
-                ran = random.randrange(0, len(color))
-                filteredBalance[x]['color'] = color[ran]
+    try:
+        if(exchange == 'Binance'):
+            binance = ccxt.binance({
+            'apiKey': api,
+            'secret': secret,
+            })
+            markets = binance.fetchBalance()['info']['balances']
     
-    print(filteredBalance)
+        
+        color = ['red', 'yellow', 'green', 'rgba(161, 6, 86, 0.8)', 'rgba(47, 107, 217, 0.8)', 'rgba(188, 244, 21, 0.8)', 'rgba(249, 164, 22, 0.8)', 'rgba(235, 80, 102, 0.8)', 'rgba(125, 235, 80, 0.8)', 'rgba(26, 116, 134, 0.8)', 'rgba(28, 91, 229, 0.8)', 'rgba(13, 47, 123, 0.91)', 'rgba(221, 28, 60, 0.91)']
+    
+        for index, market in enumerate(markets):
+            amount = float(markets[index]['free']) + float(markets[index]['locked'])
+            x = market['asset']
+            
+            if(amount != 0.0):
+                filteredBalance[x] = market
+                if(market['asset'] != 'USDT'):
+                    filteredBalance[x]['price'] = binance.fetchTicker(x+"/USDT")['close']*amount
+                    ran = random.randrange(0, len(color))
+                    filteredBalance[x]['color'] = color[ran]
+                elif(markets[index]['asset'] == 'USDT'):
+                    filteredBalance[x]['price'] = amount
+                    ran = random.randrange(0, len(color))
+                    filteredBalance[x]['color'] = color[ran]
+    
+        print(filteredBalance)
+    except Exception as e:
+        pass
     return filteredBalance
 
 
